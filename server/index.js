@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 mongoose.connect("mongodb+srv://DoscaUser:DoscaPassword123@cluster0.f5mpn.mongodb.net/doscadb?retryWrites=true&w=majority");
+//Use this link to connect to MongoDB Compass: mongodb+srv://DoscaUser:DocsaPassword123@cluster0.f5mpn.mongodb.net/test
 
 app.get("/getLobbies", (req, res) => {
     LobbyModel.find({}, (err, result) => {
