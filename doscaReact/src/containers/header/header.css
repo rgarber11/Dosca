@@ -1,0 +1,14 @@
+.Dosca__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 1rem 1rem;
+}
+
+.Dosca__header-fullLogo {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
