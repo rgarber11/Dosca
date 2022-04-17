@@ -82,4 +82,5 @@ class Container extends React.Component
     }
 }
 
-export default Container
+//export default Container
+export default props => "Container";

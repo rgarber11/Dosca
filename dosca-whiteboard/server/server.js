@@ -48,19 +48,22 @@ app.get("/getWhiteboards", (req, res) => {
 //Creates new whiteboard along with user as host
 app.post("/createWhiteboard", async (req, res) => {
 
+      //Creates host user
       const user = req.body;
       const newUser = new User(user);
 
       var randomCode = Math.round((Math.random()*10000));
       newUser.code = randomCode;
 
-      if(Whiteboard.findOne({code: randomCode})){
+      randomCode = 2279;
+      if(!Whiteboard.findOne({code: randomCode})){
             console.log("CODE IS UNIQUE");
       }else{
             console.log("CODE IS NOT UNIQUE, RECALCULATING");
-            randomCode = Math.round((Math.random)*100000);
+            randomCode = randomCode*10;
       }   
 
+      //Creates new whiteboard w/ passed-in data.
       const whiteboard = {
             code: randomCode,
             url: req.body.url,

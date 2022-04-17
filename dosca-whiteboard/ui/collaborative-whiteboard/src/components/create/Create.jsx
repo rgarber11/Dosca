@@ -4,6 +4,8 @@ import Axios from "axios";
 import { render } from 'react-dom';
 import Container from '../container/Container';
 
+
+
 class Create extends React.Component {
 
   constructor(props) {
@@ -99,7 +101,10 @@ class Create extends React.Component {
               })
             }}
           />
-          <button onClick={this.addUser()}>
+          <button
+            onClick={() => {
+              this.addUser();
+            }}>
               Add User
           </button>
         </div>
@@ -195,5 +200,10 @@ class Create extends React.Component {
 //       </div>
 //     );
 // }
-
+// export default props => {
+//   <>
+//     Main view{" "}
+//     <button value ={1} onClick={props.clickBtn}>Container</button>
+//   </>
+// }
 export default Create;
