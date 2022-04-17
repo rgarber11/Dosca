@@ -3,10 +3,15 @@ import io from 'socket.io-client';
 
 import './style.css';
 
+
 class Board extends React.Component {
 
     timeout;
     socket = io.connect("http://localhost:4545");
+
+    //console.log(window.location.port);
+    //Use this to get browser link
+    //number = window.location.hostname;
 
     ctx;
     isDrawing = false;
