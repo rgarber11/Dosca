@@ -96,7 +96,4 @@ app.post("/addUser", async (req, res) => {
             }
       });
 });
-
-app.listen(3001, () => {
-    console.log("SERVER RUNNING SUCCESSFULLY...");
-});
+module.exports = app
