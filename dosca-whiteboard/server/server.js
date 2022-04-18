@@ -21,7 +21,6 @@ http.listen(server_port, () => {
     console.log("Started on : "+ server_port);
 })
 
-
 //Database get/post requests
 var { User } = require("./models/whiteboard");
 var { Whiteboard } = require("./models/whiteboard");
@@ -45,22 +44,24 @@ app.get("/getWhiteboards", (req, res) => {
     })
 });
 
-//Creates new whiteboard along with user as host
+//Creates new whiteboard w/ unique code
 app.post("/createWhiteboard", async (req, res) => {
 
+      //Creates host user
       const user = req.body;
       const newUser = new User(user);
 
-      var randomCode = Math.round((Math.random()*10000));
+      var randomCode = Math.round((Math.random()*1000));
       newUser.code = randomCode;
 
-      if(Whiteboard.findOne({code: randomCode})){
+      if(!Whiteboard.findOne({code: randomCode})){
             console.log("CODE IS UNIQUE");
       }else{
             console.log("CODE IS NOT UNIQUE, RECALCULATING");
-            randomCode = Math.round((Math.random)*100000);
+            randomCode = randomCode*10;
       }   
 
+      //Creates new whiteboard w/ passed-in data.
       const whiteboard = {
             code: randomCode,
             url: req.body.url,
@@ -73,6 +74,7 @@ app.post("/createWhiteboard", async (req, res) => {
       res.json(whiteboard);
 });
 
+//Adds a user into an existing whiteboard using a unique code
 app.post("/addUser", async (req, res) => {
       const user = req.body;
       const newUser = new User(user);
@@ -88,7 +90,7 @@ app.post("/addUser", async (req, res) => {
                   if(!success){
                         console.log("INVALID CODE");
                   } else {
-                  console.log("ADDED USER");
+                        console.log("ADDED USER");
                   }
                   res.json(success);
             }
