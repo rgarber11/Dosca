@@ -1,10 +1,7 @@
 import React from 'react';
 import Board from '../board/Board';
-import logo from '../../assets/logosmall.png';
 import eraser from '../../assets/eraser.jpg';
 import fulllogo from '../../assets/Doscafull.png';
-
-
 import './style.css';
 
 class Container extends React.Component

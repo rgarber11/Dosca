@@ -1,8 +1,10 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
-// import './index.css';
-// import App from './App';
-// import * as serviceWorker from './serviceWorker';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
+import { BrowserRouter } from "react-router-dom";
+
 
 // ReactDOM.render(
 //   <React.StrictMode>
@@ -16,15 +18,22 @@
 // // Learn more about service workers: https://bit.ly/CRA-PWA
 // serviceWorker.unregister();
 
+// ReactDOM.render(
+//   <BrowserRouter>
+//     <App />
+//   </BrowserRouter>,
+//   document.getElementById("root")
+// );
 
-import React from 'react';
-import { render } from 'react-dom';
-import Create from './components/create/Create';
 
-const View = () => (
-  <div>
-    <Create/>
-  </div>
-);
+//import React from 'react';
+// import { render } from 'react-dom';
+// import Create from './components/create/Create';
 
-render(<View />, document.getElementById('root'));
+// const View = () => (
+//   <div>
+//     <App/>
+//   </div>
+// );
+
+ReactDOM.render(<App />, document.getElementById('root'));
