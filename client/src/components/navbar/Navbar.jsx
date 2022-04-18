@@ -16,7 +16,7 @@ const Navbar = () => {
             <p><a href="#doscateam">Dosca Team</a></p>
           </div>
         </div>
-        <div className="Dosca__navbar-sign">
+        <div className="Create-Lobby">
           <p>Create Lobby</p>
         </div>
     </div>

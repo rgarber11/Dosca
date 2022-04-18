@@ -2,6 +2,10 @@ import React from 'react';
 import { useState, useEffect } from "react";
 import Axios from "axios";
 import {useNavigate} from "react-router-dom";
+import './style.css';
+import logo from './Doscafull.png';
+
+
 
 function Login(){
   var[code, setCode] = useState("");
@@ -33,35 +37,45 @@ function Login(){
   }
 
   return (
-    //TODO: Format this section
-    <div className="Login">
+  <body> 
+    <div class="Login">
       <div>
-        <input
-          type="text"
-          placeholder="Username..."
-          onChange={(event) => {
-            setUrl(window.location.href);
-            setHost("t");
-            setUsername(event.target.value);
-            setColor("red");
-            setCan_draw(true);
-            setIs_banned(false);
-          }}
-        />
-        <input
-          type="text"
-          placeholder="Code..."
-          onChange={(event) => {
-            setCode(event.target.value);
-          }}
-        />
-        <button onClick={() =>{
-          addUser();
-        }}>
-            Join
-        </button>
+        <div class="Logo">
+          <img src = {logo} width="250"/>
+        </div>
+        <div class="Username">
+          <input
+            type="text"
+            placeholder="Username"
+            onChange={(event) => {
+              setUrl(window.location.href);
+              setHost("t");
+              setUsername(event.target.value);
+              setColor("red");
+              setCan_draw(true);
+              setIs_banned(false);
+            }}
+          />
+        </div>
+        <div class="Code">
+          <input
+            type="text"
+            placeholder="Room Code"
+            onChange={(event) => {
+              setCode(event.target.value);
+            }}
+          />
+        </div>
+        <div class="Join-Button">
+          <button class="join" onClick={() =>{
+              addUser();
+            }}>
+                Join
+            </button>
+        </div>
       </div>
     </div>
+    </body> 
   );
 }
 
