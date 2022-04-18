@@ -1,0 +1,52 @@
+* {
+    font-family: 'Lato', sans-serif;
+    background-color: beige;
+}
+
+
+
+.Login {
+    margin:100px auto;
+    width: 350px;
+    padding: 60px;
+
+}
+
+.Logo {
+    width:400px;
+    height:100px
+}
+
+.Logo_img {
+    width:50%;
+    height:50%;
+}
+
+.Login input {
+    font-size: 18px;
+    padding: 10px 20px 10px 5px;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.Username, .Code {
+    display: block;
+    border-radius: 30px;
+    background-color: white;
+    border: 1px solid rgba(0,0,0,0.2);
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.join {
+    width: 100%;
+    padding: 12px 10px;
+    margin: 10px 0;
+    border: none;
+    font-size: 18px;
+    border-radius: 30px;
+    background-color: #98bcd4;
+    color: white;
+    cursor: pointer;
+}

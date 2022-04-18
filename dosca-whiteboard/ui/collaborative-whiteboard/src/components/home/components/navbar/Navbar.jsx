@@ -34,8 +34,8 @@ const Navbar = () => {
             <p><a href="#doscateam">Dosca Team</a></p>
           </div>
         </div>
-        <div className="Dosca__navbar-sign">
-          <p onClick={()=>{    
+        <div className="Dosca-LobbyButton">
+          <p class="Create-Lobby" onClick={()=>{    
             createWhiteboard();
           }}>Create Whiteboard</p>
         </div>
