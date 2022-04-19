@@ -1,23 +1,24 @@
 import React from 'react';
 import Board from '../board/Board';
-import eraser from '../../assets/eraser.jpg';
+import eraser from '../../assets/neraser.png';
 import fulllogo from '../../assets/Doscafull.png';
 import './style.css';
 
-class Container extends React.Component
+class Container extends React.Component 
 {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
 
         this.state = {
             color: "#000000",
             size: "5",
-            isErasing: false
+            lastColor: "#FFFFFF"
         }
     }
 
     changeColor(params) {
         this.setState({
+            lastColor: this.state.color,
             color: params.target.value
         })
     }
@@ -29,50 +30,45 @@ class Container extends React.Component
     }
 
     changeToEraser(){
+        console.log(this.color);
         this.setState({
             color: "#FFFFFF"
         })
+        console.log(this.color);
     }
     
-    clear() {
-        
+    changeToOldColor(){
+        var temp = this.state.color;
+                    this.setState({
+                        color: this.state.lastColor,
+                        lastColor: temp
+                    })
     }
 
     render() {
-
         return (
             <div className="container">
-                <span className="dosca_logo">
+                <div className="dosca_logo">
                     <img src={fulllogo} height="auto" width="150"   />
-                </span>
-                <div className="tools" >
-                    <div className="color-picker"> 
-                        &nbsp;
-                        <input type="color" value={this.state.color} onChange={this.changeColor.bind(this)}/> 
-                    </div>
-                    <div className="brush-picker">
-                        Brush Size : &nbsp; 
-                        <select value={this.state.size} onChange={this.changeSize.bind(this)}>
-                            <option> 5 </option>
-                            <option> 10 </option>
-                            <option> 15 </option>
-                            <option> 20 </option>
-                            <option> 25 </option>
-                            <option> 30 </option>
-                            <option> 40 </option>
-                            <option> 50 </option>
-                        </select>
-                    </div>
-                    <button onClick="changeToEraser()" type="button" className="Clear">
-                        <img src={eraser} alt="eraser" width="30" height = "10" />
-                    </button>
-                    <button onClick="changeToEraser()" type="button" className="Clear">
-                        Clear
-                    </button>
-                    
                 </div>
+                <div className="tools" >
+                    <button className="last-color" onClick={() => {
+                    var temp = this.state.color;
+                    this.setState({
+                        color: this.state.lastColor,
+                        lastColor: temp
+                    })}} style={{backgroundColor: this.state.lastColor}}> </button>
+                    <input className ="color-changer" type="color" value={this.state.color} onChange={this.changeColor.bind(this)}/> 
+                    <button onClick={() => {this.setState({color: "#FFFFFF"})}} type="button" className="eraser">
+                    <img src={eraser} alt="eraser" width="35" height = "35" />
+                    </button>
+                    <input className="size-slider" type="range" min="2" max="75" value={this.state.size} onInput={this.changeSize.bind(this)}></input>
+                    <div className="class-code" style={{backgroundColor: '#91BAD6'}}> Dosca Lobby Code: <div class="code"> 3340 </div> </div>
+                    
+                    </div>
                 <div class="board-container">
-                    <Board color={this.state.color} size={this.state.size}></Board>
+                    <Board color={this.state.color} size={this.state.size} >
+                    </Board>
                 </div>
             </div>
         )

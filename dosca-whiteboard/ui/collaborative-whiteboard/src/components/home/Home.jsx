@@ -10,7 +10,7 @@ function Home() {
               <Navbar />
               <Header />
               <Buttons />
-              <Footer />
+              <Footer className ="foot" />
             </div>
         </div>
       )

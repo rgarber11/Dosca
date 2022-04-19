@@ -1,20 +1,24 @@
 * {
-    font-family: 'Lato', sans-serif;
-    background-color: beige;
+    font-family: 'FreeMono', monospace;
 }
 
+.whole {
+    height: 2000px;
 
-
+    background-color: beige;
+}
 .Login {
     margin:100px auto;
     width: 350px;
     padding: 60px;
-
+    background-color: beige;
+    border-radius: 27px;
+    
 }
 
 .Logo {
     width:400px;
-    height:100px
+    height:100px;
 }
 
 .Logo_img {
@@ -23,6 +27,7 @@
 }
 
 .Login input {
+    size: fixed;
     font-size: 18px;
     padding: 10px 20px 10px 5px;
     border: none;

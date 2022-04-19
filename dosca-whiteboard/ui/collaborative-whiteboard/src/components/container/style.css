@@ -1,8 +1,12 @@
+* {
+    font-family: 'FreeMono', monospace;
+}
+
 .container {
     position: fixed;
     width: 100%;
     height: 100%;
-    background:linear-gradient(90deg, #F8F8D6 0%, #E0E1D1 50%, #FBFBE0 100%);
+    background:beige;
 }
 
 .tools {
@@ -12,32 +16,81 @@
     justify-content: center;
     flex-direction: row;
     box-sizing: border-box;
-    border-radius: 50%;
     align-self: center;
-    margin: 10px 20px 30px 40px;
+    
+    margin-left:40;
+    margin-right: 40;
+    margin-top: 5px;
 }
+
+.size-slider {
+    width: 5%;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.color-changer {
+    height: 40px;
+    width: 40px;
+    border-radius: 0%;
+    margin-right: 5px;
+    margin-left:5px;
+}
+
+.eraser {
+    margin-right: 5px;
+    margin-left:5px;
+    height:40px;
+    width: 60px;
+    background-image: 'url(${eraser})';
+}
+
+.class-code {
+    position: fixed;
+    left: 1250px;
+    top: 10px;
+    min-height: 50px;
+    min-width: 200px;
+    text-align: center;
+    font-family: 'FreeMono', monospace;
+}
+
+.last-color {
+    min-height: 40px;
+    min-width: 40px;
+    height: 40px;
+    width: 40px;
+}
+
+
 .dosca_logo {
     left: 30px;
     position: fixed;
     top: 5px;
-    width: 300px;
-    height: 300px;
+    width: 10px;
+    height: 20px;
 }
 
+.clear {
+    height: 40px;
+    width: 60px;
+    font-family: 'Lato', sans-serif;
+    border-radius: 10%;
+}
 
 .erase {
     box-align: center;
     max-width: 20%;
-    height: 20px;
+    height: 40px;
     width:  40px;
 }
 
 .board-container {
-    align: center;
     width: 95%;
-    height: 90%;
+    height: 88%;
     margin: auto;
-    margin-top: 3%;
+    margin-top: 2%;
     background: white;
+    
 }
 

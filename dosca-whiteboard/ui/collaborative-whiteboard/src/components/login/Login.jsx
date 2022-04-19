@@ -17,7 +17,7 @@ function Login(){
   var[is_banned, setIs_banned] = useState(false);
 
   let navigate = useNavigate();
-
+  
   //Function for calling post request to add user
   const addUser = () => {
     Axios.post("http://localhost:3001/addUser", {
@@ -38,10 +38,12 @@ function Login(){
 
   return (
   <body> 
+    
     <div class="Login">
       <div>
         <div class="Logo">
           <img src = {logo} width="250"/>
+          <span className="whole"></span>
         </div>
         <div class="Username">
           <input
@@ -75,6 +77,7 @@ function Login(){
         </div>
       </div>
     </div>
+    
     </body> 
   );
 }
