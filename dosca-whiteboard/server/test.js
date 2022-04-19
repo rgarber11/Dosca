@@ -3,8 +3,10 @@ const mongoose = require("mongoose");
 const supertest = require("supertest");
 var {User} = require("./models/whiteboard")
 var {Whiteboard} = require("./models/whiteboard")
+
 beforeAll( async () => {
 	await mongoose.connect("mongodb+srv://DoscaUser:DoscaPassword123@cluster0.f5mpn.mongodb.net/doscadb?retryWrites=true&w=majority");
+	mongoose.connection.db.dropDatabase();
 });
 afterAll((done) => {
 	mongoose.connection.db.dropDatabase(() => {
@@ -19,7 +21,7 @@ describe("Server tests", ()=> {
 		await supertest(app).post("/createWhiteboard").send(testHost)
 			.then((response) => {
 				testUser.code = response.body.code;
-				expect(response.body.host).toBe(testhost.username);
+				expect(response.body.host).toBe(testHost.username);
 				expect(response.body.users).toHaveLength(1);
 		});
 	});
@@ -30,7 +32,7 @@ describe("Server tests", ()=> {
 			});
 	});
 	it("Add User to Created WhiteBoard", async () => {
-		await supertest(app).post("addUser").send(testUser)
+		await supertest(app).post("/addUser").send(testUser)
 			.then((response) => {
 				expect(response.body).toContain("success");
 			});
@@ -38,8 +40,7 @@ describe("Server tests", ()=> {
 	it("Check if User was added", async () => {
 		await supertest(app).get("/getWhiteBoards")
 			.then((response) => {
-				expect(response.body.findOne()).users.toHaveLength(2);
+				expect((response.body)[0].users).toHaveLength(2); 
 		});
 	});
 });
-
