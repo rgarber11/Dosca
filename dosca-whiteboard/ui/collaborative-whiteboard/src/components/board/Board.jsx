@@ -22,10 +22,12 @@ class Board extends React.Component {
         //connecting our websocket, this is the client side websocket
         this.socket.on("canvas-data", function(data){
 
+            var rn = this;
+
             var interval = setInterval(function(){
                 //all of these variables here are our board objects 
-                if(this.raceDraw) return;
-                this.raceDraw = true;
+                if(rn.raceDraw) return;
+                rn.raceDraw = true;
                 clearInterval(interval);
                 var image = new Image();
                 //our board 
@@ -33,7 +35,7 @@ class Board extends React.Component {
                 var current = whiteboard.getContext('2d');
                 image.onload = function() {
                     current.drawImage(image, 0, 0);
-                    this.raceDraw = false;
+                    rn.raceDraw = false;
                 };
                 image.src = data;
             }, 200)
