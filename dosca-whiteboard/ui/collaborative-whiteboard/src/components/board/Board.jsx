@@ -13,97 +13,115 @@ class Board extends React.Component {
     //Use this to get browser link
     //number = window.location.hostname;
 
-    ctx;
-    isDrawing = false;
+    //will keep track of who's drawing first
+    raceDraw = false;
 
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
 
+        //connecting our websocket, this is the client side websocket
         this.socket.on("canvas-data", function(data){
 
-            var root = this;
             var interval = setInterval(function(){
-                if(root.isDrawing) return;
-                root.isDrawing = true;
+                //all of these variables here are our board objects 
+                if(this.raceDraw) return;
+                this.raceDraw = true;
                 clearInterval(interval);
                 var image = new Image();
-                var canvas = document.querySelector('#board');
-                var ctx = canvas.getContext('2d');
+                //our board 
+                var whiteboard = document.querySelector('#board');
+                var current = whiteboard.getContext('2d');
                 image.onload = function() {
-                    ctx.drawImage(image, 0, 0);
-
-                    root.isDrawing = false;
+                    current.drawImage(image, 0, 0);
+                    this.raceDraw = false;
                 };
                 image.src = data;
             }, 200)
         })
     }
 
+    //using react component library to draw on white board
     componentDidMount() {
-        this.drawOnCanvas();
+        this.drawOnWhiteboard();
     }
 
+    //Givivng new attributes to our whiteboard
     componentWillReceiveProps(newProps) {
-        this.ctx.strokeStyle = newProps.color;
-        this.ctx.lineWidth = newProps.size;
+        this.current.strokeStyle = newProps.color;
+        this.current.lineWidth = newProps.size;
     }
 
-    drawOnCanvas() {
-        var canvas = document.querySelector('#board');
-        this.ctx = canvas.getContext('2d');
-        var ctx = this.ctx;
+    //Clear Whiteboard - used for whiteboard function
+    clearwWiteboard() {
+        this.current.fillstyle= "white";
+        this.current.clearRect(0,0,this.whiteboard.width, this.whiteboard.height);
+        this.current.fillRect(0,0,this.whiteboard.width, this.whiteboard.height);
+    }
 
-        var sketch = document.querySelector('#sketch');
-        var sketch_style = getComputedStyle(sketch);
-        canvas.width = parseInt(sketch_style.getPropertyValue('width'));
-        canvas.height = parseInt(sketch_style.getPropertyValue('height'));
+    //actually doing the drawing 
+    drawOnWhiteboard() {
+        var whiteboard = document.querySelector('#board'); 
+        this.current = whiteboard.getContext('2d'); //updating our current whiteboard
+        var current = this.current;
+        var drawing = document.querySelector('#drawing'); //getting our current page/whiteboard
+        var drawing_style = getComputedStyle(drawing);
 
-        var mouse = {x: 0, y: 0};
-        var last_mouse = {x: 0, y: 0};
+        whiteboard.width = parseInt(drawing_style.getPropertyValue('width'));
+        whiteboard.height = parseInt(drawing_style.getPropertyValue('height'));
 
-        
-        canvas.addEventListener('mousemove', function(e) {
-            last_mouse.x = mouse.x;
-            last_mouse.y = mouse.y;
+        var cursor = {
+            x: 0,
+            y: 0};
+        var last_cursor_position = {
+            x: 0, 
+            y: 0};
 
-            mouse.x = e.pageX - this.offsetLeft;
-            mouse.y = e.pageY - this.offsetTop;
+    
+        //This will change based on where the mouse cursor currently is positioned
+        whiteboard.addEventListener('mousemove', function(input) {
+            last_cursor_position.x = cursor.x;
+            last_cursor_position.y = cursor.y;
+
+            cursor.x = input.pageX - this.offsetLeft;
+            cursor.y = input.pageY - this.offsetTop;
         }, false);
 
+        //CURRENt is our current attributes associated with our line
+        current.lineWidth = this.props.size;
+        current.lineJoin = 'round'; //using round so the line doesn't have any spaces when connecting the ends
+        current.lineCap = 'round';
+        current.strokeStyle = this.props.color;
 
-        ctx.lineWidth = this.props.size;
-        ctx.lineJoin = 'round';
-        ctx.lineCap = 'round';
-        ctx.strokeStyle = this.props.color;
-
-        canvas.addEventListener('mousedown', function(e) {
-            canvas.addEventListener('mousemove', onPaint, false);
+        //Checking for events we draw on
+        whiteboard.addEventListener('mousedown', function(input) {
+            whiteboard.addEventListener('mousemove', onPaint, false);
         }, false);
 
-        canvas.addEventListener('mouseup', function() {
-            canvas.removeEventListener('mousemove', onPaint, false);
+        whiteboard.addEventListener('mouseup', function(input) {
+            whiteboard.removeEventListener('mousemove', onPaint, false);
         }, false);
 
-        var root = this;
+        var rn = this;
         var onPaint = function() {
-            ctx.beginPath();
-            ctx.moveTo(last_mouse.x, last_mouse.y);
-            ctx.lineTo(mouse.x, mouse.y);
-            ctx.closePath();
-            ctx.stroke();
+            //creating our lines 
+            current.beginPath(); 
+            current.moveTo(last_cursor_position.x, last_cursor_position.y); //from last cursor
+            current.lineTo(cursor.x, cursor.y); //to current cursor
+            current.closePath(); 
+            current.stroke(); //stroke created from our current properties
 
-            if(root.timeout != undefined) clearTimeout(root.timeout);
-            root.timeout = setTimeout(function(){
-                var base64ImageData = canvas.toDataURL("image/png");
-                root.socket.emit("canvas-data", base64ImageData);
-            }, 1000)
+            if(rn.timeout != undefined) clearTimeout(rn.timeout);
+            rn.timeout = setTimeout(function(){
+                var base64ImageData = whiteboard.toDataURL("image/png");
+                rn.socket.emit("canvas-data", base64ImageData);
+            }, 1500)
         };
     }
 
     render() {
-        return (
-            <div class="sketch" id="sketch">
-                <canvas className="board" id="board"></canvas>
+        return ( 
+            <div class="drawing" id="drawing">
+                <canvas className="board" id="board"></canvas>  
             </div>
         )
     }

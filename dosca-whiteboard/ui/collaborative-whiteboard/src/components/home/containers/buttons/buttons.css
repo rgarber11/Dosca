@@ -1,3 +1,7 @@
+* {
+    font-family: 'FreeMono', monospace;
+}
+
 .Dosca__Buttons {
     flex: 1;
     display: flex;

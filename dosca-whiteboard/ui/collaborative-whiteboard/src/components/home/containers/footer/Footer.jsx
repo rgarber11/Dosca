@@ -1,7 +1,7 @@
 import React from 'react'
 import './footer.css';
 
-const Footer = () => {
+var Footer = () => {
   return (
     <div classname="Dosca__footer">
         
