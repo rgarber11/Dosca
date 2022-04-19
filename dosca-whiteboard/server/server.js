@@ -4,7 +4,7 @@ var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 var mongoose = require('mongoose');
 var cors = require('cors');
-
+var newWhiteBoardBool = true;
 
 //Websocket setup
 io.on('connection', (socket)=> {
@@ -12,13 +12,12 @@ io.on('connection', (socket)=> {
 
       socket.on('canvas-data', (data)=> {
             socket.broadcast.emit('canvas-data', data);
-            
       })
 })
 
 var server_port = process.env.YOUR_PORT || process.env.PORT || 4545;
 http.listen(server_port, () => {
-    console.log("Started on : "+ server_port);
+    console.log("Started on port: "+ server_port);
 })
 
 //Database get/post requests
@@ -51,15 +50,18 @@ app.post("/createWhiteboard", async (req, res) => {
       const user = req.body;
       const newUser = new User(user);
 
-      var randomCode = Math.round((Math.random()*1000));
+      var randomCode = Math.round((Math.random()*10000));
       newUser.code = randomCode;
 
-      if(!Whiteboard.findOne({code: randomCode})){
+      if(!Whiteboard.findOne({code: randomCode}) || newWhiteBoardBool){
             console.log("CODE IS UNIQUE");
+            newWhiteBoardBool = false;
       }else{
             console.log("CODE IS NOT UNIQUE, RECALCULATING");
             randomCode = randomCode*10;
-      }   
+      } 
+      newUser.code = randomCode;
+      console.log("Whiteboard Code: " + randomCode);
 
       //Creates new whiteboard w/ passed-in data.
       const whiteboard = {
@@ -89,10 +91,11 @@ app.post("/addUser", async (req, res) => {
             } else {
                   if(!success){
                         console.log("INVALID CODE");
+                        res.json(null);
                   } else {
                         console.log("ADDED USER");
+                        res.json("success");
                   }
-                  res.json(success);
             }
       });
 });
