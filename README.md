@@ -21,7 +21,7 @@ A modern online whiteboard that promotes safe and interactive learning between s
 
 ### Instructions to run:
 1. Prerequisites: latest version of Node.js running on machine.
-2. In terminal, CD into dosca-whiteboard/server/server.js
+2. In terminal, CD into dosca-whiteboard/server
 3. Run **npm install** and wait for node modules to download.
 4. Run **npm start** and wait for the startup confirmation.
 5. Open a seperate terminal window, CD into dosca-whiteboard/ui/collaborative-whiteboard
