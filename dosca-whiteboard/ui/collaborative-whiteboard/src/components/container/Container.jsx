@@ -63,7 +63,7 @@ class Container extends React.Component
                     <img src={eraser} alt="eraser" width="35" height = "35" />
                     </button>
                     <input className="size-slider" type="range" min="2" max="75" value={this.state.size} onInput={this.changeSize.bind(this)}></input>
-                    <div className="class-code" style={{backgroundColor: '#91BAD6'}}> Dosca Lobby Code: <div class="code"> 3340 </div> </div>
+                    <div className="class-code" style={{backgroundColor: '#91BAD6'}}> Dosca Lobby Code: <div class="code"></div> </div>
                     
                     </div>
                 <div class="board-container">
